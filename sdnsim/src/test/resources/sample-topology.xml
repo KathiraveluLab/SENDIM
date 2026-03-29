@@ -1,0 +1,16 @@
+<system-descriptor>
+    <node id="s1" type="switch">
+        <link id="s2"></link>
+        <link id="h1"></link>
+    </node>
+    <node id="s2" type="switch">
+        <link id="s1"></link>
+        <link id="h2"></link>
+    </node>
+    <node id="h1" type="host">
+        <link id="s1"></link>
+    </node>
+    <node id="h2" type="host">
+        <link id="s2"></link>
+    </node>
+</system-descriptor>

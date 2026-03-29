@@ -1,0 +1,33 @@
+module sendim {
+    yang-version 1;
+    namespace "urn:org:sendim:params:xml:ns:yang:sendim";
+    prefix "sendim";
+
+    import ietf-inet-types { prefix inet; revision-date 2013-07-15; }
+    import ietf-yang-types { prefix yang; revision-date 2013-07-15; }
+
+    revision "2016-03-28" {
+        description "Initial revision of sendim model";
+    }
+
+    container sendim-topology {
+        list nodes {
+            key "node-id";
+            leaf node-id {
+                type string;
+            }
+            leaf node-type {
+                type enumeration {
+                    enum "switch";
+                    enum "host";
+                }
+            }
+            list links {
+                key "neighbor-id";
+                leaf neighbor-id {
+                    type string;
+                }
+            }
+        }
+    }
+}
