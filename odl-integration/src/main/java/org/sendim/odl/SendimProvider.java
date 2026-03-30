@@ -10,12 +10,15 @@ import java.util.Map;
  */
 public class SendimProvider {
 
+    private final OdlService odlService;
+
+    public SendimProvider() {
+        this.odlService = OdlServiceFactory.getOdlService();
+    }
+
     public void updateTopology(Map<String, NetworkElement> elements) {
-        System.out.println("SendimProvider: Synchronizing topology with Controller...");
-        for (String id : elements.keySet()) {
-            NetworkElement element = elements.get(id);
-            System.out.println("  [ODL Sync] Node: " + id + " type: " + element.getClass().getSimpleName());
-        }
+        System.out.println("SendimProvider: Forwarding topology synchronization to OdlService...");
+        odlService.syncTopology(elements);
     }
 }
 

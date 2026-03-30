@@ -33,7 +33,22 @@
             </plugin>
         </plugins>
     </build>
-
-
+    <profiles>
+        <profile>
+            <id>odl-sal</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.opendaylight.controller</groupId>
+                    <artifactId>sal-binding-api</artifactId>
+                    <version>${odl.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.opendaylight.controller</groupId>
+                    <artifactId>sal-common-api</artifactId>
+                    <version>${odl.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>
