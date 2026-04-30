@@ -33,6 +33,43 @@ To build and run SENDIM, you need the following dependencies installed:
     mvn install -DskipTests
     ```
 
+## Usage
+
+### 1. Running the SENDIM Middleware
+SENDIM acts as an orchestrator that takes a topology descriptor and synchronizes it across simulation, emulation, and deployment layers.
+
+To run the core orchestration logic:
+
+```bash
+mvn exec:java -pl core -Dexec.mainClass="org.sendim.core.Main"
+```
+
+By default, it uses the sample topology located at `sdnsim/src/test/resources/sample-topology.xml`. You can specify a custom topology file as an argument:
+
+```bash
+mvn exec:java -pl core -Dexec.mainClass="org.sendim.core.Main" -Dexec.args="/path/to/your-topology.xml"
+```
+
+### 2. Emulation with Mininet
+One of the primary outputs of SENDIM is a Mininet topology script (`sendim_topology.py`). This allows you to transition from simulation to emulation seamlessly.
+
+To run the generated emulation:
+
+```bash
+sudo python sendim_topology.py
+```
+
+### 3. Simulation State & Persistency
+SENDIM uses **Infinispan** for distributed state management. When you run the middleware:
+*   The xSDN engine is initialized.
+*   The topology is parsed and stored in the `experiments/` directory.
+*   Snapshots are saved as `.ser` files (e.g., `experiments/state_default-v1.ser`), allowing for state recovery across runs.
+
+### 4. OpenDaylight Integration
+The middleware automatically detects if an OpenDaylight (ODL) environment is present.
+*   **Standalone Mode**: If ODL jars are not in the classpath, SENDIM runs in a "No-Op" mode for the controller layer, while still performing simulation and generating emulation scripts.
+*   **Integrated Mode**: When deployed as an OSGi bundle within ODL Beryllium, the `SendimProvider` synchronizes the topology with the ODL MD-SAL Inventory.
+
 
 ## Citing SENDIM
 
